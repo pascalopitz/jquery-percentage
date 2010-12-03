@@ -1,0 +1,61 @@
+<html>
+	<head>
+		<title>Percentage</title>
+	</head>
+	<body>
+		
+		<form>
+			<p>
+				<input type="text" name="input1" value="70" class="percent">
+			</p>
+
+			<p>
+				<input type="text" name="input2" value="30" class="percent">
+			</p>
+
+			<p>
+				<input type="text" name="input3" value="10" class="percent">
+			</p>
+			
+			<p>
+				<input type="button" value="alert serialized form" id="alert-form">
+			</p>
+		</form>
+		
+		<p>
+			<span class="percent">80%</span>
+		</p>
+		
+		<p>
+			<input type="button" value="alert serialized span" id="alert-span">
+		</p>
+
+		<p class="percent">70%</p>
+		
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+		<script type="text/javascript" src="./percentage.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('input.percent').percentage();
+				$('#alert-form').click(function() {
+					alert($(this).parents('form').serialize());
+				});
+				
+				$('span.percent').percentage({
+					color: 'green'
+				});
+				$('#alert-span').click(function() {
+					alert($('span.percent').text());
+				});
+
+				$('p.percent').percentage({
+					color: 'pink',
+					clickable: 0,
+					width: 170,
+					height: 50,
+					border: '4px solid green'
+				});
+			});
+		</script>
+	</body>
+</html>	

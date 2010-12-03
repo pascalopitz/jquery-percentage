@@ -28,6 +28,18 @@
             var bar = $('<div></div>');
             var inner = $('<div></div>');
             
+            var percent;
+            var hasValue;
+            
+            if($(elem).is('textarea,input,select')) {
+                percent = $(elem).val();
+                hasValue = true;
+            } else {
+                percent = parseInt($(elem).text().replace('%', ''));
+                hasValue = false;
+            }
+            
+
             function getLeft(val) {
                 return Math.floor((conf.width * -1) + (conf.width / 100 * val))
             }
@@ -36,25 +48,23 @@
                 var p = $(this).offset();
                 var percent = Math.ceil((e.clientX - p.left) / (conf.width / 100));
                 
-                $(elem)
-                    .attr('value', percent)
-                    .val(percent)
-                    .attr('title', percent + '%')
-                    ;
+                if(hasValue) {
+                    $(elem)
+                        .attr('value', percent)
+                        .val(percent)
+                        .attr('title', percent + '%')
+                        ;
+                } else {
+                    $(elem)
+                        .text(percent + '%')
+                        ;
+                }
                 
                 $(inner)
                     .css('left', getLeft(percent))
                     ;
                 
                 return false;
-            }
-            
-            var percent;
-            
-            if($(elem).is('textarea,input,select')) {
-                percent = $(elem).val();
-            } else {
-                percent = parseInt($(elem).text().replace('%', ''));
             }
             
             $(bar)
