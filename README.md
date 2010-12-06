@@ -2,7 +2,13 @@
 
 Just a little widget to turn elements into clickable percentage bars, that do dynamic updates.
 
-Example:
+# Location
+
+I moved this from a gist to a public repo:
+
+https://github.com/pascalopitz/jquery-percentage
+
+# Example
 
     $('span.percent').percentage();
     
