@@ -40,8 +40,12 @@
 
         <p class="percent">70%</p>
         
+        <p>
+            <input type="button" value="update above with 50%" id="update-p">
+        </p>
+
         <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-        <script type="text/javascript" src="./percentage.js"></script>
+        <script type="text/javascript" src="./percentage.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
                 $('input.percent').percentage();
@@ -60,6 +64,9 @@
                 });
                 $('#remove-span').click(function() {
                     $('span.percent').percentage('destroy');
+                });
+                $('#update-p').click(function() {
+                    $('p.percent').percentage('set', 50);
                 });
 
                 $('p.percent').percentage({

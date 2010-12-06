@@ -1,7 +1,7 @@
 (function(){
     var _self = this;
     
-    function render(conf) {
+    function render(conf, val) {
         var elems = this;
         
         if(conf == 'destroy') {
@@ -12,7 +12,7 @@
                     $(this.percentage).remove();
                 }
             })
-            return;
+            return elems;
         }
 
         var defaults = {
@@ -35,6 +35,34 @@
                 }
             }
         }
+        
+        function getLeft(newVal) {
+            return Math.floor((conf.width * -1) + (conf.width / 100 * newVal))
+        }
+        
+        function updateElem(elem, val) {
+            if($(elem).is('textarea,input,select')) {
+                $(elem)
+                    .attr('value', val)
+                    .val(val)
+                    .attr('title', val + '%')
+                    ;
+            } else {
+                $(elem)
+                    .text(val + '%')
+                    ;
+            }
+        }
+
+        if(conf == 'set') {
+            $(elems).each(function() {
+                var elem = this;
+                conf = elem.percentage_conf;
+                updateElem(elem, val);
+                $(elem.percentage).find('div').css('left', getLeft(val));
+            });
+            return elems;
+        }
 
         $(elems).each(function() {
             var elem = this;
@@ -52,28 +80,12 @@
                 hasValue = false;
             }
             
-
-            function getLeft(val) {
-                return Math.floor((conf.width * -1) + (conf.width / 100 * val))
-            }
-
             function handleClick(e) {
                 var p = $(this).offset();
                 var percent = Math.ceil((e.clientX - p.left) / (conf.width / 100));
                 
-                if(hasValue) {
-                    $(elem)
-                        .attr('value', percent)
-                        .val(percent)
-                        .attr('title', percent + '%')
-                        .trigger('clickupdate')
-                        ;
-                } else {
-                    $(elem)
-                        .text(percent + '%')
-                        .trigger('clickupdate')
-                        ;
-                }
+                updateElem(elem, percent);
+                $(elem).trigger('clickupdate');
                 
                 $(inner)
                     .css('left', getLeft(percent))
@@ -117,6 +129,7 @@
                 ;
                 
             this.percentage = bar;
+            this.percentage_conf = conf;
         });
         
         return elems;
