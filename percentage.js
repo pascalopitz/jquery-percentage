@@ -4,15 +4,28 @@
     function render(conf) {
         var elems = this;
         
+        if(conf == 'destroy') {
+            $(elems).each(function() {
+                $(this).show();
+
+                if(this.percentage) {
+                    $(this.percentage).remove();
+                }
+            })
+            return;
+        }
+
         var defaults = {
             width: 200,
             height: 15,
             border: '1px solid #000000',
             color: '#cc0000',
             background: '#ffffff',
-            clickable: true
+            clickable: true,
+            classname: 'percentage',
+            display: 'inline-block'
         };
-
+        
         if(conf == undefined) {
             conf = defaults;
         } else {
@@ -53,10 +66,12 @@
                         .attr('value', percent)
                         .val(percent)
                         .attr('title', percent + '%')
+                        .trigger('clickupdate')
                         ;
                 } else {
                     $(elem)
                         .text(percent + '%')
+                        .trigger('clickupdate')
                         ;
                 }
                 
@@ -69,7 +84,7 @@
             
             $(bar)
                 .attr('title', percent + '%')
-                .css('display', 'inline-block')
+                .css('display', conf.display)
                 .css('border', conf.border)
                 .css('background', conf.background)
                 .css('position', 'relative')
@@ -80,6 +95,10 @@
                 
             if(conf.clickable) {
                 $(bar).click(handleClick);
+            }
+
+            if(conf.classname) {
+                $(bar).addClass(conf.classname);
             }
 
             $(inner)
@@ -96,6 +115,8 @@
                 .hide()
                 .after(bar)
                 ;
+                
+            this.percentage = bar;
         });
         
         return elems;
@@ -105,4 +126,3 @@
         render.apply(this, arguments);
     };
 })();
-

@@ -20,6 +20,10 @@
             <p>
                 <input type="button" value="alert serialized form" id="alert-form">
             </p>
+
+            <p>
+                <input type="button" value="remove form percentages" id="remove-form">
+            </p>
         </form>
         
         <p>
@@ -28,6 +32,10 @@
         
         <p>
             <input type="button" value="alert serialized span" id="alert-span">
+        </p>
+
+        <p>
+            <input type="button" value="remove span percentage" id="remove-span">
         </p>
 
         <p class="percent">70%</p>
@@ -40,12 +48,18 @@
                 $('#alert-form').click(function() {
                     alert($(this).parents('form').serialize());
                 });
+                $('#remove-form').click(function() {
+                    $('input.percent').percentage('destroy');
+                });
                 
                 $('span.percent').percentage({
                     color: 'green'
                 });
                 $('#alert-span').click(function() {
                     alert($('span.percent').text());
+                });
+                $('#remove-span').click(function() {
+                    $('span.percent').percentage('destroy');
                 });
 
                 $('p.percent').percentage({
