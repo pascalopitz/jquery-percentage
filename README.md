@@ -1,6 +1,6 @@
-# Jquery clickable percentage bars
+# jQuery clickable percentage bars
 
-Just a little widget to turn elements into clickable percentage bars, that do dynamic updates.
+Just a little script to turn elements into clickable percentage bars, that do dynamic updates.
 
 # Location
 
